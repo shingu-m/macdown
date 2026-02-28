@@ -174,7 +174,11 @@ xcuserdata
 
 *.py[co]
 Build/
-Pods/
+# Ignore all Pods contents, but track the MASPreferences patch for macOS Tahoe fixes
+Pods/**
+!Pods/MASPreferences/
+!Pods/MASPreferences/Framework/
+!Pods/MASPreferences/Framework/MASPreferencesWindowController.m
 Tools/__pycache__/
 Dependency/version/version.h
 Dependency/peg-markdown-highlight/pmh_parser_core.c
