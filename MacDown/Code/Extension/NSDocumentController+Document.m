@@ -17,13 +17,21 @@
                                             contents:[NSData data]
                                           attributes:nil];
 
-    NSDocument *doc = [self openUntitledDocumentAndDisplay:display
-                                                     error:error];
-    if (!doc)
-        return doc;
+    NSString *type = [self typeForContentsOfURL:url error:error];
+    if (!type)
+        return nil;
 
-    doc.draft = YES;
-    doc.fileURL = url;
+    NSDocument *doc = [self makeDocumentWithContentsOfURL:url
+                                                   ofType:type
+                                                    error:error];
+    if (!doc)
+        return nil;
+
+    [self addDocument:doc];
+    [self noteNewRecentDocument:doc];
+    [doc makeWindowControllers];
+    if (display)
+        [doc showWindows];
     return doc;
 }
 
